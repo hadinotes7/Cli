@@ -1,0 +1,1360 @@
+/* متغیرهای رنگی تلگرام */
+:root {
+    --tb-primary: #229AF0;
+    --tb-white: #FFFFFF;
+    --tb-light-gray: #F1F1F3;
+    --tb-dark-text: #1A1D21;
+    --tb-subtitle: #7E8383;
+    --tb-error: #CC4748;
+    --tb-success: #4CAF50;
+}
+
+/* اسکلت اصلی - فیت شدن در صفحه */
+.tb-app-container {
+    display: flex;
+    width: 100%;
+    height: var(--tb-app-height, 80vh);
+    min-height: 500px;
+    background: var(--tb-light-gray);
+    font-family: 'IRANYekanX', tahoma, sans-serif;
+    border-radius: 0px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    position: relative;
+}
+
+/* سایدبار دسکتاپ */
+.tb-app-sidebar {
+    width: 260px;
+    background: var(--tb-white);
+    border-left: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.tb-sidebar-header {
+    padding: 25px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tb-sidebar-logo {
+    width: 40px;
+    height: 40px;
+    background: #e0f2fe;
+    color: var(--tb-primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tb-sidebar-logo svg { width: 24px; height: 24px; }
+.tb-sidebar-title { font-size: 18px; font-weight: 700; color: var(--tb-dark-text); }
+
+.tb-sidebar-nav {
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tb-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    color: var(--tb-subtitle);
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.tb-nav-item svg { width: 22px; height: 22px; }
+.tb-nav-item:hover { background: #f8fafc; color: var(--tb-dark-text); }
+.tb-nav-item.active { background: var(--tb-primary); color: var(--tb-white); box-shadow: 0 4px 15px rgba(34, 154, 240, 0.3); }
+
+/* محتوای اصلی */
+.tb-app-main {
+    flex-grow: 1;
+    background: var(--tb-light-gray);
+    position: relative;
+    overflow: hidden;
+}
+
+.tb-app-content-area {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    padding: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    animation: tbFadeIn 0.3s ease;
+}
+
+/* =========================================
+   منوی چسبان موبایل (با قوس نرم مرکزی)
+   ========================================= */
+.tb-app-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0; 
+    left: 0; 
+    width: 100%;
+    background: var(--tb-white);
+    z-index: 1000;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    padding-bottom: env(safe-area-inset-bottom, 10px);
+    filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.05));
+}
+
+.tb-app-bottom-nav .tb-nav-item {
+    flex-direction: column;
+    gap: 4px;
+    padding: 5px;
+    padding-bottom: 15px !important;
+    font-size: 11px;
+    background: transparent;
+    box-shadow: none;
+    color: var(--tb-subtitle);
+    z-index: 2;
+    width: 20%;
+    text-align: center;
+}
+.tb-app-bottom-nav .tb-nav-item svg { width: 24px; height: 24px; margin: 0 auto; }
+.tb-app-bottom-nav .tb-nav-item.active { color: var(--tb-primary); }
+
+/* دکمه برجسته مرکزی در موبایل */
+.tb-nav-center { position: relative; z-index: 1001; }
+.tb-center-btn {
+    width: 56px;
+    height: 56px;
+    background: var(--tb-primary);
+    color: var(--tb-white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 20px rgba(34, 154, 240, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    z-index: 10;
+}
+.tb-nav-center.active .tb-center-btn { 
+    transform: translateX(-50%) scale(1.05); 
+    box-shadow: 0 10px 25px rgba(34, 154, 240, 0.5);
+}
+.tb-nav-center::before {
+    content: ''; position: absolute; top: -42px; left: 50%; transform: translateX(-50%);
+    width: 70px; height: 70px; background-color: var(--tb-white); border-radius: 50%; z-index: 1;
+}
+.tb-nav-center::after {
+    content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 30px; background: transparent; border-radius: 50%;
+    box-shadow: 0 15px 0 0 var(--tb-white); z-index: 0;
+}
+.tb-nav-center span { margin-top: 28px; display: block; position: relative; z-index: 10; }
+
+/* استایل‌های عمومی ویوها */
+.tb-view-title { font-size: 22px; font-weight: 700; color: var(--tb-dark-text); margin-bottom: 25px; }
+.tb-shape-box { background: var(--tb-white); border-radius: 16px; padding: 25px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+.tb-loader-center { display: flex; justify-content: center; align-items: center; height: 100%; }
+
+/* رسپانسیو */
+@media (max-width: 768px) {
+    .tb-app-sidebar { display: none; }
+    .tb-app-bottom-nav { display: flex; }
+    .tb-app-content-area { padding: 20px; padding-bottom: 90px; }
+}
+
+@keyframes tbFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   استایل‌های اختصاصی پروفایل و لایت‌باکس
+   ========================================= */
+.tb-readonly-label { color: var(--tb-primary) !important; display: flex; align-items: center; gap: 6px; }
+.tb-readonly-label svg { width: 16px !important; height: 16px !important; flex-shrink: 0; }
+.tb-readonly-value { font-size: 15px !important; font-weight: 400 !important; }
+
+.tb-btn-outline-primary {
+    background: transparent; color: var(--tb-primary); border: 2px solid var(--tb-primary);
+    padding: 10px 25px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease;
+    font-family: 'IRANYekanX', tahoma, sans-serif;
+}
+.tb-btn-outline-primary:hover { background: var(--tb-primary); color: var(--tb-white); box-shadow: 0 4px 15px rgba(34, 154, 240, 0.3); }
+.tb-btn-outline-primary svg { width: 18px; height: 18px; }
+
+.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px; }
+.tb-table-rounded { border-collapse: separate; border-spacing: 0; border: 1px solid #e2e8f0; border-radius: 12px; width: 100%; min-width: 600px; }
+.tb-table-rounded thead tr:first-child th:first-child { border-top-right-radius: 12px; }
+.tb-table-rounded thead tr:first-child th:last-child { border-top-left-radius: 12px; }
+.tb-table-rounded tbody tr:last-child td:first-child { border-bottom-right-radius: 12px; }
+.tb-table-rounded tbody tr:last-child td:last-child { border-bottom-left-radius: 12px; }
+.tb-table-rounded th, .tb-table-rounded td { border-bottom: 1px solid #e2e8f0; }
+.tb-table-rounded tbody tr:last-child td { border-bottom: none; }
+
+.tb-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 29, 33, 0.8); backdrop-filter: blur(5px);
+    z-index: 100009; display: none; align-items: center; justify-content: center;
+}
+.tb-lightbox-box { position: relative; max-width: 90vw; max-height: 90vh; animation: tbZoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.tb-lightbox-box img { max-width: 100%; max-height: 85vh; border-radius: 50%; border: 4px solid var(--tb-white); box-shadow: 0 10px 40px rgba(0,0,0,0.5); object-fit: cover; aspect-ratio: 1/1; }
+.tb-lightbox-close {
+    position: absolute; top: -15px; right: -15px; background: var(--tb-error); border: none;
+    width: 36px; height: 36px; border-radius: 50%; color: var(--tb-white); display: flex;
+    align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 10px rgba(204, 71, 72, 0.4);
+    transition: transform 0.2s; z-index: 100010;
+}
+.tb-lightbox-close:hover { transform: scale(1.1); }
+.tb-lightbox-close svg { width: 20px; height: 20px; }
+
+/* =========================================
+   اصلاحات تب مشاور (تقویم کاری)
+   ========================================= */
+.tb-shape-title svg { width: 24px !important; height: 24px !important; flex-shrink: 0; }
+
+.tb-shape-title { 
+    font-size: 18px; 
+    font-weight: 400; 
+    color: var(--tb-dark-text); 
+    margin-bottom: 20px !important;
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.tb-btn-lock { color: var(--tb-subtitle); background: var(--tb-light-gray); cursor: pointer; }
+.tb-btn-lock:hover { background: #e2e8f0; color: var(--tb-dark-text); }
+
+.tb-btn-batch-icon {
+    background-color: var(--tb-primary); color: var(--tb-white); border: none; border-radius: 10px;
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.tb-btn-batch-icon:hover { background-color: #1c82cc; }
+.tb-btn-batch-icon svg { width: 22px; height: 22px; }
+
+.tb-btn-primary { background-color: var(--tb-primary); color: var(--tb-white); border: none; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.tb-btn-primary:hover { background-color: #1c82cc; color: var(--tb-white); }
+.tb-btn-success { background-color: var(--tb-success); color: var(--tb-white); border: none; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.tb-btn-success:hover { background-color: #166534; color: var(--tb-white); }
+.tb-btn-cancel { background-color: var(--tb-light-gray); color: var(--tb-dark-text); border: none; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+.tb-btn-cancel:hover { background-color: #e2e8f0; }
+
+/* =========================================
+   استایل‌های جدید (درخواستی شما)
+   ========================================= */
+
+/* ۱. استایل باکس جستجو و فیلتر (شبیه عکس شماره 2) */
+.tc-filter-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 25px;
+}
+.tc-filter-box .tb-label {
+    color: var(--tb-primary);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.tc-filter-box .tb-label svg { width: 16px; height: 16px; }
+
+/* =========================================
+   اصلاحات کمبوباکس‌ها و لیبل‌ها (طبق درخواست جدید)
+   ========================================= */
+
+/* ۱. استایل پایه تمام کمبوباکس‌ها (خط صاف، فلش سمت چپ، متن سمت راست) */
+.custom-select-display { cursor: pointer; background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 12px; font-size: 13px; color: var(--tb-dark-text); transition: all 0.3s; display: flex; justify-content: space-between; align-items: center; min-width: 60px; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; text-align: right; line-height: 1.6; }
+.custom-select-display .selected-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; text-align: right; flex-grow: 1; }
+.custom-select-display svg {
+    margin-right: auto !important; /* در سایت‌های RTL، این کد فلش را به منتهی‌الیه سمت چپ می‌چسباند */
+    margin-left: 0 !important;
+}
+
+/* در حالت باز شدن کمبوباکس */
+.custom-select-display.open {
+    border-color: var(--tb-primary) !important;
+    box-shadow: 0 0 0 3px rgba(34, 154, 240, 0.1);
+}
+
+/* ۲. استایل نقطه‌چین فقط و فقط برای باکس فیلترها */
+.tc-filter-box .custom-select-display {
+    border: 1px dashed #cbd5e1 !important;
+}
+.tc-filter-box .custom-select-display.open {
+    border-style: solid !important; /* وقتی باز شد خط صاف شود */
+}
+
+/* ۳. رنگ آبی تلگرامی برای تمام لیبل‌ها (عناوین بالای فیلدها) */
+.tb-label {
+    color: var(--tb-primary) !important;
+}
+
+/* ۳. استایل خطاهای درون‌خطی (شبیه عکس شماره 11) */
+.tb-error-container {
+    position: absolute;
+    top: -25px; /* قرارگیری دقیق بالای فیلد */
+    right: 0;
+    z-index: 10;
+    width: 100%;
+}
+.tb-inline-error {
+    background-color: #fee2e2;
+    color: var(--tb-error);
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    display: none;
+    animation: tbFadeIn 0.3s ease;
+    width: fit-content;
+}
+
+/* ۴. استایل صفحه‌بندی هوشمند (تلگرامی) */
+.tb-pagination-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 5px;
+    direction: rtl; /* برای چینش صحیح اعداد و فلش‌ها */
+}
+.tb-page-btn {
+    background: var(--tb-white);
+    border: 1px solid #cbd5e1;
+    color: var(--tb-primary);
+    min-width: 32px;
+    height: 32px;
+    border-radius: 10px; /* دایره‌ای شبیه تلگرام */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s;
+    padding: 0 5px;
+}
+.tb-page-btn:hover:not(.disabled) {
+    background: #e0f2fe;
+    border-color: var(--tb-primary);
+}
+.tb-page-btn.active {
+    background: var(--tb-primary);
+    color: var(--tb-white);
+    border-color: var(--tb-primary);
+}
+.tb-page-dots {
+    color: var(--tb-subtitle);
+    font-weight: bold;
+    padding: 0 5px;
+}
+.tb-page-btn.disabled {
+    color: #cbd5e1;
+    cursor: not-allowed;
+    background: #f8fafc;
+}
+
+/* ۵. تگ‌های وضعیت کپسولی (Status Badges) */
+.tc-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    gap: 6px;
+}
+.tc-status-badge svg { 
+    width: 16px !important; 
+    height: 16px !important; 
+    flex-shrink: 0;
+}
+.tc-status-available { background-color: #dcfce7; color: var(--tb-success); border: 1px solid #bbf7d0; }
+.tc-status-frozen { background-color: #ffedd5; color: #f97316; border: 1px solid #fed7aa; }
+.tc-status-booked { background-color: #e0f2fe; color: var(--tb-primary); border: 1px solid #bae6fd; }
+.tc-status-noshow { background-color: #f1f5f9; color: var(--tb-dark-text); border: 1px solid #cbd5e1; }
+.tc-status-cancelled { background-color: #f8fafc; color: var(--tb-subtitle); border: 1px solid #e2e8f0; text-decoration: line-through; }
+
+/* ۶. بزرگ کردن چک‌باکس‌های تولید انبوه */
+.tc-day-check {
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   تقویم شمسی اختصاصی سیستم (Custom Persian Datepicker)
+   ========================================================================== */
+.tb-dp-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 999999; display: none;
+    align-items: center; justify-content: center; backdrop-filter: blur(3px);
+    font-family: 'IRANYekanX', tahoma, sans-serif; direction: rtl;
+}
+.tb-dp-box {
+    background: #fff; width: 320px; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2); animation: tbZoomIn 0.3s ease;
+}
+.tb-dp-header {
+    background: var(--tb-primary); color: #fff; padding: 15px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.tb-dp-btn {
+    background: rgba(255,255,255,0.2); border: none; color: #fff;
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: 0.2s;
+}
+.tb-dp-btn:hover { background: rgba(255,255,255,0.4); }
+.tb-dp-btn svg { width: 18px; height: 18px; }
+.tb-dp-title { font-size: 16px; font-weight: 700; margin: 0; }
+.tb-dp-body { padding: 15px; }
+.tb-dp-grid { width: 100%; border-collapse: collapse; text-align: center; }
+.tb-dp-grid th {
+    font-size: 12px; color: var(--tb-subtitle); font-weight: 700; padding-bottom: 10px;
+}
+.tb-dp-grid td { padding: 2px; }
+.tb-dp-day {
+    display: block; width: 34px; height: 34px; line-height: 34px;
+    margin: 0 auto; border-radius: 50%; font-size: 14px; color: var(--tb-dark-text);
+    cursor: pointer; transition: 0.2s;
+}
+.tb-dp-day:hover { background: #e0f2fe; color: var(--tb-primary); }
+.tb-dp-day.empty { cursor: default; background: transparent; }
+.tb-dp-day.today { border: 1px solid var(--tb-primary); color: var(--tb-primary); font-weight: 700; }
+.tb-dp-day.selected { background: var(--tb-primary); color: #fff; font-weight: 700; box-shadow: 0 4px 10px rgba(34, 154, 240, 0.3); }
+.tb-dp-day.disabled { color: #cbd5e1; cursor: not-allowed; background: transparent; text-decoration: none!important; }
+.tb-dp-footer {
+    padding: 10px 15px 15px; display: flex; gap: 10px;
+}
+
+/* ==========================================================================
+   تایم‌پیکر اختصاصی و پریمیوم (Premium Time Picker)
+   ========================================================================== */
+:root {
+    --ptp-primary: var(--tb-primary); 
+    --ptp-bg: var(--tb-white);
+    --ptp-surface: var(--tb-light-gray);
+    --ptp-text: var(--tb-dark-text);
+    --ptp-text-muted: var(--tb-subtitle);
+    --ptp-border: #e5e7eb;
+    --ptp-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --ptp-font: 'IRANYekanX', tahoma, sans-serif;
+}
+
+.ptp-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(26, 29, 33, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease; direction: rtl; }
+.ptp-overlay.ptp-active { opacity: 1; visibility: visible; }
+
+.ptp-modal { background: var(--ptp-bg); width: 320px; border-radius: 24px; box-shadow: var(--ptp-shadow); overflow: hidden; transform: scale(0.9); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); font-family: var(--ptp-font); direction: ltr; z-index: 1000000; }
+.ptp-overlay.ptp-active .ptp-modal { transform: scale(1); }
+
+.ptp-header { background: var(--ptp-primary); color: white; padding: 24px; display: flex; justify-content: space-between; align-items: center; }
+.ptp-time-display { font-size: 3rem; font-weight: 700; display: flex; align-items: baseline; gap: 4px; cursor: pointer; }
+.ptp-time-display span { opacity: 0.6; transition: opacity 0.2s; }
+.ptp-time-display span.ptp-active { opacity: 1; }
+.ptp-mode-btn { background: rgba(255, 255, 255, 0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+.ptp-mode-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+.ptp-body { padding: 24px; position: relative; height: 280px; display: flex; align-items: center; justify-content: center; }
+
+.ptp-clock-container { width: 250px; height: 250px; border-radius: 50%; background: var(--ptp-surface); position: relative; cursor: crosshair; user-select: none; }
+.ptp-clock-center { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; background: var(--ptp-primary); border-radius: 50%; transform: translate(-50%, -50%); z-index: 10; }
+
+.ptp-clock-hand { position: absolute; bottom: 50%; left: 50%; width: 2px; background: var(--ptp-primary); transform-origin: bottom center; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), height 0.3s ease; z-index: 5; pointer-events: none; }
+.ptp-clock-hand.ptp-dragging { transition: none !important; }
+.ptp-clock-hand::before { content: ''; position: absolute; top: -14px; left: -14px; width: 30px; height: 30px; background: var(--ptp-primary); border-radius: 50%; opacity: 0.8; }
+
+.ptp-number { position: absolute; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transform: translate(-50%, -50%); font-size: 1rem; color: var(--ptp-text); pointer-events: none; z-index: 3; font-weight: 700; }
+.ptp-number.ptp-inner { font-size: 0.85rem; color: var(--ptp-text-muted); }
+.ptp-number.ptp-active-num { color: white; }
+
+.ptp-tick { position: absolute; width: 2px; height: 6px; background: var(--ptp-text-muted); border-radius: 2px; pointer-events: none; z-index: 1; opacity: 0.6; }
+
+.ptp-manual-container { display: none; width: 100%; justify-content: center; align-items: flex-end; gap: 12px; direction: ltr; }
+.ptp-manual-box { display: flex; flex-direction: column; align-items: center; gap: 8px;}
+.ptp-manual-box label { font-family: var(--ptp-font); font-size: 0.9rem; color: var(--ptp-text); font-weight: 700; }
+.ptp-manual-input { width: 70px; height: 70px; border: 2px solid var(--ptp-border); border-radius: 16px; font-size: 2rem; text-align: center; font-family: var(--ptp-font); color: var(--ptp-text); outline: none; transition: 0.3s; background: var(--ptp-surface); }
+.ptp-manual-input:focus { border-color: var(--ptp-primary); background: white; box-shadow: 0 0 0 3px rgba(34, 154, 240, 0.1); }
+
+.ptp-manual-colon { font-size: 2.2rem; font-weight: bold; color: var(--ptp-text); height: 70px; display: flex; align-items: center; justify-content: center; padding-bottom: 6px; }
+
+.ptp-footer { padding: 16px 24px; display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--ptp-border); }
+.ptp-btn { background: none; border: none; padding: 8px 16px; font-family: var(--ptp-font); font-weight: 700; font-size: 14px; cursor: pointer; border-radius: 8px; transition: 0.2s; }
+.ptp-btn-cancel { color: var(--tb-error); }
+.ptp-btn-cancel:hover { background: #fee2e2; }
+.ptp-btn-ok { color: var(--ptp-primary); }
+.ptp-btn-ok:hover { background: #e0f2fe; }
+
+.ptp-fade-out { opacity: 0; transform: scale(0.9); transition: all 0.2s ease; }
+.ptp-fade-in { opacity: 1; transform: scale(1); transition: all 0.2s ease; }
+
+.tb-clock-picker {
+    caret-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+/* ==========================================================================
+   مودال کشویی از پایین (Bottom Sheet)
+   ========================================================================== */
+.tb-bottom-sheet-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 29, 33, 0.6); backdrop-filter: blur(3px);
+    z-index: 999999; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+    display: flex; align-items: flex-end; justify-content: center;
+}
+.tb-bottom-sheet-overlay.active { opacity: 1; visibility: visible; }
+
+.tb-bottom-sheet {
+    width: 100%; max-width: 600px; max-height: 90vh;
+    background: var(--tb-white); border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+    transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex; flex-direction: column;
+}
+.tb-bottom-sheet-overlay.active .tb-bottom-sheet { transform: translateY(0); }
+
+.tb-bs-header {
+    padding: 20px 20px 15px 20px; border-bottom: 1px solid #f1f5f9;
+    position: relative; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.tb-bs-handle {
+    position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+    width: 40px; height: 5px; background-color: #cbd5e1; border-radius: 10px;
+}
+.tb-bs-title { font-size: 16px; font-weight: 800; color: var(--tb-dark-text); margin: 0; margin-top: 5px; }
+.tb-bs-close {
+    background: none; border: none; color: var(--tb-subtitle); cursor: pointer;
+    padding: 5px; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s; margin-top: 5px;
+}
+.tb-bs-close:hover { color: var(--tb-error); }
+.tb-bs-close svg { width: 24px; height: 24px; }
+
+.tb-bs-body { padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch; flex-grow: 1; }
+.tb-bs-footer {
+    padding: 15px 20px; border-top: 1px solid #f1f5f9; background: var(--tb-white);
+    flex-shrink: 0; padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px));
+}
+
+.tc-weekday-row {
+    display: flex; align-items: center; gap: 15px; padding-bottom: 15px;
+    border-bottom: 1px dashed #cbd5e1; margin-bottom: 15px;
+}
+.tc-weekday-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.tc-weekday-checkbox { width: 90px; flex-shrink: 0; }
+.tc-weekday-times {
+    display: flex; align-items: center; gap: 10px; flex-grow: 1;
+    opacity: 0.5; pointer-events: none; transition: all 0.3s ease;
+}
+.tc-weekday-times.active { opacity: 1; pointer-events: auto; }
+.tc-time-input-wrapper { position: relative; flex: 1; }
+.tc-time-input-wrapper input { padding: 8px 10px; font-size: 13px; text-align: center; border-radius: 8px; width: 100%; }
+
+@media (max-width: 768px) {
+    #front-batch-modal .row.g-3 > div { margin-bottom: 15px; }
+    #front-batch-modal .row.g-3 > div:last-child { margin-bottom: 0; }
+    .tc-weekday-row { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .tc-weekday-checkbox { width: 100%; }
+    .tc-weekday-times { width: 100%; justify-content: space-between; }
+}
+
+/* ==========================================================================
+   استایل‌های گزارش تولید انبوه (Batch Report)
+   ========================================================================== */
+.tb-batch-report-container { animation: tbFadeIn 0.4s ease; }
+.tb-report-success { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 25px 20px; text-align: center; color: #166534; }
+.tb-report-success svg { width: 48px; height: 48px; color: var(--tb-success); margin-bottom: 10px; }
+.tb-report-success h4 { font-size: 18px; font-weight: 700; margin: 0 0 10px 0; }
+.tb-report-success p { margin: 0; font-size: 14px; }
+
+.tb-report-warning { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 12px; padding: 25px 20px; text-align: center; color: #9a3412; }
+.tb-report-warning svg { width: 48px; height: 48px; color: #ea580c; margin-bottom: 10px; }
+.tb-report-warning h4 { font-size: 16px; font-weight: 700; margin: 0 0 10px 0; color: #ea580c; }
+
+.tb-skipped-list { margin: 0; padding: 0; list-style-type: none; color: #9a3412; font-size: 13px; line-height: 1.8; max-height: 150px; overflow-y: auto; text-align: center; }
+.tb-skipped-list li { margin-bottom: 5px; background: rgba(234, 88, 12, 0.1); padding: 5px 10px; border-radius: 6px; display: inline-block; width: 100%; }
+
+/* =========================================
+   استایل حالت خالی (Empty State)
+   ========================================= */
+.tb-role-empty-state {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 20px; background: var(--tb-white);
+    border-radius: 16px; border: 2px dashed #cbd5e1; margin-top: 10px; animation: tbFadeIn 0.5s ease;
+}
+.tb-role-empty-icon {
+    width: 80px; height: 80px; background: #f1f5f9; color: #94a3b8; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+.tb-role-empty-icon svg { width: 40px; height: 40px; }
+.tb-role-empty-state h3 { font-size: 16px; font-weight: 800; color: var(--tb-dark-text); margin-bottom: 10px; }
+.tb-role-empty-state p { font-size: 14px; color: var(--tb-subtitle); max-width: 400px; line-height: 1.8; margin: 0; }
+
+@media (max-width: 768px) {
+    body:has(.tb-app-container) .site-footer { display: none !important; }
+    body:has(.tb-app-container) { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+}
+
+/* =========================================
+   اصلاح سایز آیکون‌های SVG در فرم‌ها و عنوان‌ها
+   ========================================= */
+
+/* ۱. سایز آیکون‌های کنار لیبل فیلدها (مثل تاریخ، ساعت، حوزه درمانی) */
+.tb-label svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0; /* جلوگیری از فشرده شدن آیکون */
+}
+
+/* ۲. سایز آیکون‌های کنار عنوان باکس‌ها (مثل افزودن تایم جدید) */
+.tb-shape-title svg {
+    width: 22px !important;
+    height: 22px !important;
+    flex-shrink: 0;
+}
+
+/* ۳. اطمینان از اینکه لیبل و آیکون در یک خط افقی قرار می‌گیرند (جلوگیری از رفتن آیکون به بالای متن) */
+.tb-label {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+}
+
+/* استایل دکمه حذف (سطل زباله قرمز) در جدول */
+.tb-btn-delete {
+    color: var(--tb-error) !important;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.tb-btn-delete:hover {
+    background: #fee2e2 !important; /* پس‌زمینه قرمز خیلی روشن در حالت هاور */
+}
+.tb-btn-delete svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* استایل دکمه قفل در جدول */
+.tb-btn-lock {
+    color: var(--tb-subtitle) !important;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.tb-btn-lock:hover {
+    background: #f1f5f9 !important;
+    color: var(--tb-dark-text) !important;
+}
+.tb-btn-lock svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* =========================================
+   استایل پاپ‌آپ‌های تایید و هشدار (Confirm & Alert Modals)
+   ========================================= */
+.tb-confirm-box {
+    background: var(--tb-white);
+    width: calc(100% - 40px);
+    max-width: 350px;
+    margin: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 20px; /* گوشه‌های گرد و مدرن */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: tbZoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* جلوگیری از غول‌پیکر شدن آیکون هشدار */
+.tb-confirm-icon {
+    color: #f59e0b; /* رنگ نارنجی هشدار */
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.tb-confirm-icon svg {
+    width: 60px !important;
+    height: 60px !important;
+    flex-shrink: 0;
+}
+
+/* آیکون خطای قرمز */
+.tb-alert-icon {
+    color: var(--tb-error);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.tb-alert-icon svg {
+    width: 60px !important;
+    height: 60px !important;
+    flex-shrink: 0;
+}
+
+/* متن پیام */
+.tb-confirm-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tb-dark-text);
+    margin-bottom: 25px;
+    line-height: 1.8;
+}
+
+/* دکمه‌های پاپ‌آپ */
+.tb-confirm-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+}
+
+.tb-confirm-actions button {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'IRANYekanX', tahoma, sans-serif;
+}
+
+.tb-confirm-actions .tb-btn-cancel {
+    background: var(--tb-light-gray);
+    color: var(--tb-dark-text);
+}
+.tb-confirm-actions .tb-btn-cancel:hover {
+    background: #e2e8f0;
+}
+
+.tb-confirm-actions .tb-btn-danger {
+    background: var(--tb-error);
+    color: var(--tb-white);
+}
+.tb-confirm-actions .tb-btn-danger:hover {
+    background: #b91c1c;
+}
+
+/* =========================================
+   وسط‌چین کردن دکمه‌های ستون عملیات در جدول
+   ========================================= */
+.tb-action-btns {
+    display: flex;
+    gap: 8px;
+    justify-content: center; /* 👈 این خط دکمه‌ها را در مرکز قرار می‌دهد */
+    align-items: center;
+    width: 100%;
+}
+
+/* =========================================
+   افزایش فاصله بین لیبل و فیلد در فرم‌ها
+   ========================================= */
+.tb-label {
+    margin-bottom: 8px !important; /* 👈 فاصله از پایین بیشتر شد (پیش‌فرض 8px بود) */
+}
+
+/* =========================================
+   اصلاحات پیشرفته کمبوباکس‌ها (Custom Select)
+   ========================================= */
+
+/* ۱. اضافه کردن نقطه‌چین ریز زیر هر گزینه در لیست بازشونده */
+.custom-option {
+    border-bottom: 1px dashed #cbd5e1 !important; /* 👈 خط نقطه‌چین ریز */
+    font-size: 13px;!important;
+    padding: 6px 12px !important; /* 👈 عدد 6px فاصله بالا و پایین را کمتر می‌کند (پیش‌فرض 10px بود) */
+}
+/* حذف نقطه‌چین از آخرین گزینه تا ظاهر باکس تمیز بماند */
+.custom-option:last-child {
+    border-bottom: none !important;
+}
+
+/* =========================================
+   استایل پایه مودال‌ها و پاپ‌آپ‌های استاندارد
+   ========================================= */
+.tb-modal-box {
+    background: var(--tb-white);
+    width: calc(100% - 40px);
+    max-width: 500px;
+    margin: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: tbZoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.tb-modal-large {
+    max-width: 800px !important;
+}
+
+.tb-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background: var(--tb-light-gray);
+    flex-shrink: 0;
+}
+
+.tb-modal-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tb-dark-text);
+    display: flex;
+    align-items: center;
+}
+
+.tb-modal-close {
+    background: var(--tb-error);
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: var(--tb-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.tb-modal-close:hover {
+    transform: scale(1.1);
+}
+.tb-modal-close svg {
+    width: 15px;
+    height: 15px;
+}
+
+.tb-modal-body {
+    padding: 20px;
+    background: var(--tb-white);
+}
+
+.tb-modal-footer {
+    padding: 20px 25px;
+    background: var(--tb-light-gray);
+    flex-shrink: 0;
+}
+
+/* =========================================
+   اصلاحات فشردگی فرم‌ها و لیبل‌ها (Compact UI)
+   ========================================= */
+
+/* ۱. بولد کردن لیبل‌ها و کاهش فاصله آن‌ها با فیلد زیرین */
+.tb-label {
+    font-size: 13px;
+    font-weight: 700 !important; /* 👈 بولدتر شدن متن لیبل */
+    margin-bottom: 4px !important; /* 👈 کاهش شدید فاصله لیبل با فیلد (پیش‌فرض 12px بود) */
+}
+
+/* ۲. کاهش فاصله بین ردیف‌های فرم (فیلدها با فیلدهای پایینی) */
+/* کلاس g-3 در بوت‌استرپ فاصله 16px می‌دهد، ما آن را برای فرم‌های خودمان کمتر می‌کنیم */
+#front_add_form_section .g-3 {
+    --bs-gutter-y: 10px !important; /* 👈 کاهش فاصله عمودی بین فیلدها */
+}
+
+#front-batch-modal .g-3 {
+    --bs-gutter-y: 2px !important; /* 👈 کاهش فاصله عمودی بین فیلدها */
+}
+
+/* ۳. بزرگ کردن چک‌باکس‌های روزهای هفته در تولید انبوه */
+.front-day-check {
+    width: 22px !important; /* 👈 عرض بزرگتر */
+    height: 22px !important; /* 👈 ارتفاع بزرگتر */
+    cursor: pointer;
+    border-radius: 6px !important; /* 👈 کمی گرد کردن گوشه‌های چک‌باکس */
+    border: 2px solid #cbd5e1 !important; /* 👈 ضخیم‌تر کردن حاشیه چک‌باکس */
+    margin-left: 8px !important; /* 👈 فاصله چک‌باکس با متن "شنبه" */
+}
+
+/* تغییر رنگ چک‌باکس در حالت انتخاب شده */
+.front-day-check:checked {
+    background-color: var(--tb-primary) !important;
+    border-color: var(--tb-primary) !important;
+}
+
+/* =========================================
+   اصلاحات ظاهری (فیلترها و دکمه‌ها)
+   ========================================= */
+
+/* ۱. جلوگیری از دو خطی شدن دکمه لغو فیلتر در دسکتاپ */
+#front_btn_clear_filters {
+    white-space: nowrap !important;
+}
+
+/* ۲. نقطه‌چین کردن فیلدهای تاریخ فقط در باکس فیلتر */
+.tc-filter-box .tb-date-picker {
+    border: 1px dashed #cbd5e1 !important;
+}
+
+/* ==========================================================================
+   استایل‌های اختصاصی ردیف‌های حذف شده و لغو شده (Soft Delete UI)
+   ========================================================================== */
+
+/* کلاس اختصاصی برای ردیف‌های باطل شده */
+.tc-row-deleted td {
+    background-color: var(--tb-white) !important; /* پس‌زمینه سفید */
+    color: var(--tb-error) !important; /* رنگ متن قرمز */
+    text-decoration: none !important; /* حذف خط‌خوردگی */
+    opacity: 0.85; /* کمی کمرنگ‌تر برای تمایز بهتر */
+}
+
+/* تغییر رنگ هاور برای ردیف‌های حذف شده */
+.tb-table tbody tr.tc-row-deleted:hover td {
+    background-color: var(--tb-table-hover) !important; /* رنگ هاور استاندارد جدول */
+}
+
+/* استایل تگ وضعیت برای حالت حذف شده (تایم آزاد) */
+.tc-status-deleted {
+    background-color: #f8fafc;
+    color: var(--tb-error);
+    border: 1px solid #fecaca;
+} 
+
+/* استایل دکمه قرمز (Danger) در داشبورد درمانگر */
+.tb-btn-danger {
+    background-color: var(--tb-error);
+    color: var(--tb-white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.tb-btn-danger:hover {
+    background-color: #b91c1c;
+    color: var(--tb-white);
+}
+
+/* ==========================================================================
+   اصلاحات ظاهری (UI Fixes)
+   ========================================================================== */
+
+/* 👈 حل قطعی مشکل فیلد استراحت (راست‌چین کردن اجباری) */
+.tb-input-buffer {
+    text-align: right !important;
+    padding-left: 50px !important; /* فضای کافی برای کلمه "دقیقه" */
+    direction: rtl !important;
+}
+
+/* 👈 استایل دکمه تعیین تکلیف سریع (فقط در موبایل تمام‌عرض شود) */
+.tb-btn-resolution-trigger {
+    padding: 10px 20px;
+    font-size: 13px;
+    border-color: #CC4748;
+    color: #00000;
+    white-space: nowrap;
+    width: auto; /* در دسکتاپ به اندازه متن باشد */
+}
+
+@media (max-width: 768px) {
+    .tb-btn-resolution-trigger {
+        width: 100% !important; /* در موبایل تمام‌عرض شود */
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   استایل یکپارچه هشدارهای داشبورد (کارتابل و گوگل)
+   ========================================================================== */
+.tb-dashboard-alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+.tb-dashboard-alert-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+}
+.tb-dashboard-alert-icon {
+    background: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tb-dashboard-alert-action {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .tb-dashboard-alert {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .tb-dashboard-alert-action,
+    .tb-dashboard-alert-action button,
+    .tb-dashboard-alert-action a {
+        width: 100% !important;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   استایل باکس خطاهای گروهی (Grouped Errors) در دسکتاپ
+   ========================================================================== */
+.tb-grouped-errors {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: var(--tb-error);
+    font-size: 13px;
+    font-weight: 700;
+    animation: tbFadeIn 0.3s ease;
+}
+
+.tb-grouped-errors ul {
+    margin: 0;
+    padding-right: 20px;
+}
+
+.tb-grouped-errors li {
+    margin-bottom: 5px;
+}
+
+.tb-grouped-errors li:last-child {
+    margin-bottom: 0;
+}
+
+/* در موبایل، باکس خطاهای گروهی مخفی می‌شود (چون خطاهای درون‌خطی داریم) */
+@media (max-width: 768px) {
+    .tb-grouped-errors {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   استایل‌های فوق‌پریمیوم ویجت داشبورد (SaaS Style)
+   ========================================================================== */
+.tb-premium-stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.tb-stat-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.tb-stat-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background: #e0f2fe;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tb-primary);
+}
+
+.tb-stat-icon-wrapper svg {
+    width: 32px;
+    height: 32px;
+}
+
+.tb-stat-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.tb-stat-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tb-subtitle);
+    margin-bottom: 5px;
+}
+
+.tb-stat-number {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--tb-dark-text);
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.tb-stat-number span {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tb-primary);
+    margin-right: 5px;
+}
+
+/* ==========================================================================
+   استایل فوق‌پریمیوم دکمه گوگل‌میت (SaaS Style)
+   ========================================================================== */
+.tc-btn-meet {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none !important;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.tc-btn-meet svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+/* حالت غیرفعال (خاکستری) */
+.tc-btn-meet.disabled {
+    background-color: #f1f5f9;
+    color: #94a3b8;
+    border: 1px solid #e2e8f0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* حالت فعال (سبز نئونی) */
+.tc-btn-meet.active {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    border: none;
+}
+
+/* افکت هاور در حالت فعال */
+.tc-btn-meet.active:hover {
+    transform: translateY(-2px);
+}
+
+.tc-btn-meet.active:hover svg {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* افکت درخشش (Glow) متحرک برای جلب توجه */
+.tc-btn-meet.active::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: rotate(30deg);
+    animation: tbGlowSweep 3s infinite linear;
+}
+
+@keyframes tbGlowSweep {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* ==========================================================================
+   حل قطعی تداخل لایه‌ها (Z-Index) برای پاپ‌آپ‌های تایید و هشدار
+   ========================================================================== */
+#tb-confirm-modal,
+#tb-alert-modal {
+    z-index: 99999999 !important; /* بالاترین لایه ممکن در مرورگر */
+}
+
+/* ==========================================================================
+   حل قطعی مشکل ارتفاع پاپ‌آپ کارتابل و استایل جدول (SaaS Style)
+   ========================================================================== */
+
+/* ۱. برگرداندن فاصله‌های استاندارد پاپ‌آپ */
+#front-resolution-modal .tb-modal-body {
+    padding: 10px !important;
+    overflow: hidden !important; /* جلوگیری از اسکرول کل پاپ‌آپ */
+}
+
+/* ۲. تنظیم فاصله متن راهنما */
+#front-resolution-modal .text-muted {
+    padding: 0 0 15px 0 !important;
+    margin: 0 !important;
+}
+
+/* ۳. ساخت یک باکس زیبا و اسکرول‌خور فقط برای جدول داخل پاپ‌آپ کارتابل */
+#front-resolution-modal .table-responsive {
+    max-height: 50vh !important; 
+    overflow-y: auto !important;
+    border: 1px solid #e2e8f0 !important; 
+    border-radius: 12px !important; 
+    margin: 0 !important;
+}
+
+/* 👈 حل مشکل محدودیت ارتفاع در جدول‌های اصلی داشبورد */
+.tb-shape-box .table-responsive {
+    max-height: none !important;
+    overflow-y: visible !important;
+    border: none !important;
+}
+
+/* ۴. استایل هدر چسبان و حذف خطوط خاکستری بین ستون‌ها */
+#front-resolution-modal .tb-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f8fafc !important;
+    z-index: 10 !important;
+    border: none !important; /* 👈 حذف خطوط خاکستری بین ستون‌ها */
+}
+
+/* ۵. حذف حاشیه‌های اضافی خود جدول برای فیت شدن در باکس */
+#front-resolution-modal .tb-table {
+    border: none !important;
+}
+#front-resolution-modal .tb-table tbody tr:last-child td {
+    border-bottom: none !important;
+} 
+
+/* ==========================================================================
+   جلوگیری از شکستن متن در تمام ستون‌های جداول داشبورد
+   ========================================================================== */
+.tb-table th,
+.tb-table td {
+    white-space: nowrap !important;
+}
+
+/* اطمینان از اینکه کانتینر جدول در صورت نیاز اسکرول افقی می‌خورد */
+.table-responsive {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 👈 حل مشکل نقطه‌چین شدن فیلد متنی جستجو */
+.tc-filter-box input[type="text"].tc-filter-input {
+    border: 1px dashed #cbd5e1 !important;
+}
+.tc-filter-box input[type="text"].tc-filter-input:focus {
+    border-style: solid !important;
+}
+
+/* ==========================================================================
+   استایل‌های اختصاصی فیلد جستجوی مراجع (Ajax Autocomplete)
+   ========================================================================== */
+
+/* 👈 قرار دادن دقیق دکمه ضربدر در سمت چپ فیلد */
+.tb-search-clear-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--tb-error);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.tb-search-clear-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* 👈 حل مشکل افتادن لیست روی فیلدهای پایینی (هل دادن عناصر به پایین) */
+.tb-autocomplete-results { 
+    position: relative; /* 👈 تغییر کلیدی: خروج از حالت شناور */
+    margin-top: 8px; 
+    background: #fff; 
+    border: 1px solid #cbd5e1; 
+    border-radius: 12px; 
+    z-index: 10; 
+    max-height: 210px; 
+    overflow-y: auto; 
+    display: none; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    width: 100%;
+}
+
+.tb-autocomplete-item { 
+    padding: 12px 15px; 
+    cursor: pointer; 
+    font-size: 13px; 
+    border-bottom: 1px solid #f1f5f9; 
+    color: var(--tb-dark-text);
+    transition: all 0.2s ease;
+    text-align: right;
+}
+
+.tb-autocomplete-item:last-child { 
+    border-bottom: none; 
+}
+
+.tb-autocomplete-item:hover { 
+    background: #f8fafc; 
+    color: var(--tb-primary); 
+}

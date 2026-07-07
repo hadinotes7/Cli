@@ -1,0 +1,81 @@
+/* استایل‌های اختصاصی تقویم دوره‌های آموزشی */
+
+.tcc-weekday-check {
+    width: 20px !important;
+    height: 20px !important;
+    cursor: pointer;
+    border-radius: 6px !important;
+    border: 2px solid #cbd5e1 !important;
+}
+.tcc-weekday-check:checked {
+    background-color: var(--tb-primary) !important;
+    border-color: var(--tb-primary) !important;
+}
+
+.tcc-cap-check {
+    width: 22px !important;
+    height: 22px !important;
+    cursor: pointer;
+    border-radius: 6px !important;
+}
+
+.tcc-inst-row {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+/* 👈 استایل دکمه افزودن قسط جدید */
+.tcc-btn-add-inst {
+    background: transparent;
+    color: var(--tb-primary);
+    border: 2px dashed var(--tb-primary);
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'IRANYekanX', tahoma, sans-serif;
+}
+.tcc-btn-add-inst:hover {
+    background: var(--tb-primary);
+    color: #fff;
+    border-style: solid;
+    box-shadow: 0 4px 10px rgba(34, 154, 240, 0.2);
+}
+
+/* 👈 استایل دکمه حذف ایزوله شده (برای اقساط و پیش‌نمایش) */
+.tcc-btn-remove-inst,
+.tcc-btn-remove-preview {
+    background: #fee2e2;
+    color: var(--tb-error);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.tcc-btn-remove-inst:hover,
+.tcc-btn-remove-preview:hover {
+    background: var(--tb-error);
+    color: #fff;
+}
+.tcc-btn-remove-inst svg,
+.tcc-btn-remove-preview svg {
+    width: 18px;
+    height: 18px;
+}
+
+#tcc_preview_body tr {
+    background: #fff;
+    transition: all 0.3s ease;
+}
+#tcc_preview_body tr:hover {
+    background: #f8fafc;
+}

@@ -1,0 +1,61 @@
+/* عرض ستون‌های جدول اطلاعات پایه در دسکتاپ */
+.tb-th-code { width: 15%; }
+.tb-th-name { width: 25%; }
+.tb-th-desc { width: 45%; }
+.tb-th-action { width: 15%; }
+
+.tb-col-code { font-weight: 400; }
+.tb-col-name { 
+    font-weight: 400; 
+    max-width: 200px !important; 
+    white-space: normal !important; 
+    word-wrap: break-word !important; 
+    line-height: 1.8;
+    text-align: justify !important; 
+    text-align-last: right !important; 
+}
+.tb-col-desc { 
+    font-weight: 400; 
+    max-width: 180px !important; 
+    white-space: normal !important; 
+    word-wrap: break-word !important; 
+    line-height: 1.8;
+    padding-left: 15px !important; 
+    text-align: justify !important; 
+    text-align-last: right !important; 
+}
+
+/* رسپانسیو موبایل جدول اطلاعات پایه */
+@media (max-width: 768px) {
+    .tb-table th:nth-child(3) { width: auto !important; }
+    .tb-th-code { width: 15% !important; }
+    .tb-th-name { width: auto !important; }
+    .tb-col-name {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: 130px !important; 
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: justify !important;
+        text-align-last: right !important;
+    }
+    .tb-th-desc { width: auto !important; }
+    .tb-col-desc { 
+        width: auto !important; 
+        min-width: 0 !important; 
+        max-width: 130px !important; 
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        padding-left: 10px !important;
+        text-align: justify !important;
+        text-align-last: right !important;
+    }
+    .tb-th-action { 
+        width: 80px !important; 
+        min-width: 80px !important;
+        white-space: nowrap !important; 
+    }
+    .tb-action-btns {
+        justify-content: flex-end !important; 
+    }
+}

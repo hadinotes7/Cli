@@ -1,0 +1,658 @@
+/* ==========================================================================
+   استایل‌های اختصاصی ماژول تقویم کاری جلسات روان‌درمانی (فاز ۴)
+   ========================================================================== */
+
+/* --- نوار وضعیت گوگل (Google Sync Status Bar) --- */
+.tb-google-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    animation: tbFadeIn 0.4s ease;
+}
+
+.tb-google-status-bar.disconnected {
+    background-color: var(--tb-light-gray);
+    border: 1px solid #e2e8f0;
+    color: var(--tb-dark-text);
+}
+
+.tb-google-status-bar.connected {
+    background-color: #f0fdf4; /* سبز بسیار روشن */
+    border: 1px solid #bbf7d0;
+    color: #166534;
+}
+
+.tb-google-status-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: right;
+    text-align-last: right;
+    line-height: 1.6;
+}
+
+.tb-google-status-info span {
+    flex-grow: 1;
+}
+
+.tb-google-status-info svg {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.tb-google-status-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- تگ‌های کپسولی وضعیت جلسات (Status Badges) --- */
+.tc-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    gap: 6px;
+}
+
+.tc-status-badge svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* آزاد (سبز) */
+.tc-status-available {
+    background-color: #dcfce7;
+    color: var(--tb-success);
+    border: 1px solid #bbf7d0;
+}
+
+/* فریز موقت (نارنجی) */
+.tc-status-frozen {
+    background-color: #ffedd5;
+    color: #f97316;
+    border: 1px solid #fed7aa;
+}
+
+/* رزرو قطعی (آبی) */
+.tc-status-booked {
+    background-color: #e0f2fe;
+    color: var(--tb-primary);
+    border: 1px solid #bae6fd;
+}
+
+/* غیبت مراجع (مشکی/خاکستری تیره) */
+.tc-status-noshow {
+    background-color: #f1f5f9;
+    color: var(--tb-dark-text);
+    border: 1px solid #cbd5e1;
+}
+
+/* لغو شده (خاکستری) */
+.tc-status-cancelled {
+    background-color: #f8fafc;
+    color: var(--tb-subtitle);
+    border: 1px solid #e2e8f0;
+    text-decoration: line-through;
+}
+
+/* --- اطلاعات مراجع در زیر تگ وضعیت --- */
+.tc-client-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--tb-dark-text);
+}
+
+.tc-client-info span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tc-client-info svg {
+    width: 12px;
+    height: 12px;
+    color: var(--tb-subtitle);
+}
+
+/* --- دکمه‌های عملیات تقویم --- */
+.tb-btn-reschedule {
+    color: var(--tb-primary);
+}
+.tb-btn-reschedule:hover {
+    background: #e0f2fe;
+}
+
+.tb-btn-noshow {
+    color: var(--tb-dark-text);
+}
+.tb-btn-noshow:hover {
+    background: #e2e8f0;
+}
+
+/* --- استایل‌های مودال تولید انبوه (Batch Generator) --- */
+.tc-weekdays-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.tc-weekday-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #cbd5e1;
+}
+.tc-weekday-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tc-weekday-checkbox {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.tc-weekday-times {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.tc-weekday-times.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tc-time-input-wrapper {
+    position: relative;
+    width: 100px;
+}
+
+.tc-time-input-wrapper input {
+    padding: 6px 10px;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* --- اصلاحات کتابخانه‌های خارجی (Datepicker & Clockpicker) --- */
+.datepicker-plot-area {
+    font-family: 'IRANYekanX', tahoma, sans-serif !important;
+    border-radius: 12px !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    z-index: 100006 !important; /* بالاتر از مودال‌ها */
+}
+
+.datepicker-plot-area .datepicker-day-view .table-days td.selected span {
+    background-color: var(--tb-primary) !important;
+    border-radius: 8px !important;
+}
+
+.jqclockpicker-container {
+    font-family: 'IRANYekanX', tahoma, sans-serif !important;
+    border-radius: 12px !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    z-index: 100006 !important;
+}
+
+.jqclockpicker-header {
+    background: var(--tb-primary) !important;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+.jqclockpicker-canvas-fg, .jqclockpicker-canvas-bearing {
+    fill: var(--tb-primary) !important;
+}
+.jqclockpicker-canvas-bg {
+    fill: rgba(34, 154, 240, 0.25) !important;
+}
+.jqclockpicker-canvas line {
+    stroke: var(--tb-primary) !important;
+}
+
+/* ==========================================================================
+   تقویم شمسی اختصاصی سیستم (Custom Persian Datepicker)
+   ========================================================================== */
+.tb-dp-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 100009; display: none;
+    align-items: center; justify-content: center; backdrop-filter: blur(3px);
+    font-family: 'IRANYekanX', tahoma, sans-serif; direction: rtl;
+}
+.tb-dp-box {
+    background: #fff; width: 320px; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2); animation: tbZoomIn 0.3s ease;
+}
+.tb-dp-header {
+    background: var(--tb-primary); color: #fff; padding: 15px;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.tb-dp-btn {
+    background: rgba(255,255,255,0.2); border: none; color: #fff;
+    width: 30px; height: 30px; border-radius: 8px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: 0.2s;
+}
+.tb-dp-btn:hover { background: rgba(255,255,255,0.4); }
+.tb-dp-btn svg { width: 18px; height: 18px; }
+.tb-dp-title { font-size: 16px; font-weight: 700; margin: 0; }
+.tb-dp-body { padding: 15px; }
+.tb-dp-grid { width: 100%; border-collapse: collapse; text-align: center; }
+.tb-dp-grid th {
+    font-size: 12px; color: var(--tb-subtitle); font-weight: 700; padding-bottom: 10px;
+}
+.tb-dp-grid td { padding: 2px; }
+.tb-dp-day {
+    display: block; width: 34px; height: 34px; line-height: 34px;
+    margin: 0 auto; border-radius: 50%; font-size: 14px; color: var(--tb-dark-text);
+    cursor: pointer; transition: 0.2s;
+}
+.tb-dp-day:hover { background: #e0f2fe; color: var(--tb-primary); }
+.tb-dp-day.empty { cursor: default; background: transparent; }
+.tb-dp-day.today { border: 1px solid var(--tb-primary); color: var(--tb-primary); font-weight: 700; }
+.tb-dp-day.selected { background: var(--tb-primary); color: #fff; font-weight: 700; box-shadow: 0 4px 10px rgba(34, 154, 240, 0.3); }
+.tb-dp-day.disabled { color: #cbd5e1; cursor: not-allowed; background: transparent; text-decoration: none!important; }
+.tb-dp-footer {
+    padding: 10px 15px 15px; display: flex; gap: 10px;
+}
+
+/* --- فیلترهای پیشرفته --- */
+.tc-filter-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+/* --- اصلاحات جدول --- */
+.tb-table th {
+    white-space: nowrap !important;
+}
+
+/* --- رسپانسیو موبایل --- */
+@media (max-width: 768px) {
+    .tc-weekday-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .tc-weekday-times {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .tc-time-input-wrapper {
+        width: 120px; 
+    }
+    .tb-google-status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .tb-grouped-errors {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    #tc_add_form_section .tb-inline-error,
+    #tc-batch-modal .tb-inline-error {
+        display: none !important;
+    }
+}
+
+
+/* در دسکتاپ خطاهای نرم مخفی می‌شوند (چون خطای گروهی داریم) */
+@media (min-width: 769px) {
+    #tc_add_form_section .tb-inline-error,
+    #tc-batch-modal .tb-inline-error {
+        display: none !important;
+    }
+}
+
+/* --- استایل‌های عمومی و فیلدها --- */
+.tb-white-readonly {
+    background-color: #ffffff !important;
+    cursor: pointer !important;
+}
+
+.tb-search-clear-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--tb-error);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+.tb-search-clear-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- باکس خطاهای گروهی (دسکتاپ) --- */
+.tb-grouped-errors {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: var(--tb-error);
+    font-size: 13px;
+    font-weight: 700;
+}
+.tb-grouped-errors ul {
+    margin: 0;
+    padding-right: 20px;
+}
+.tb-grouped-errors li {
+    margin-bottom: 5px;
+}
+.tb-grouped-errors li:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   استایل‌های گزارش تولید انبوه (Batch Report)
+   ========================================================================== */
+.tb-batch-report-container {
+    animation: tbFadeIn 0.4s ease;
+}
+
+.tb-report-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    color: #166534;
+}
+
+.tb-report-success svg {
+    width: 48px;
+    height: 48px;
+    color: var(--tb-success);
+    margin-bottom: 10px;
+}
+
+.tb-report-success h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+
+.tb-report-success p {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* 👈 اصلاح استایل باکس هشدار و آیکون خطر */
+.tb-report-warning {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 25px 20px;
+    text-align: center;
+    color: #9a3412;
+}
+
+.tb-report-warning svg {
+    width: 48px;
+    height: 48px;
+    color: #ea580c;
+    margin-bottom: 10px;
+}
+
+.tb-report-warning h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #ea580c;
+}
+
+.tb-skipped-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    color: #9a3412;
+    font-size: 13px;
+    line-height: 1.8;
+    max-height: 150px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.tb-skipped-list li {
+    margin-bottom: 5px;
+    background: rgba(234, 88, 12, 0.1);
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    width: 100%;
+}
+
+/* =========================================
+   بزرگ کردن چک‌باکس‌های روزهای هفته در تولید انبوه (پنل مدیریت)
+   ========================================= */
+.tc-day-check {
+    width: 22px !important; /* 👈 عرض بزرگتر */
+    height: 22px !important; /* 👈 ارتفاع بزرگتر */
+    cursor: pointer;
+    border-radius: 6px !important; /* 👈 کمی گرد کردن گوشه‌ها */
+    border: 2px solid #cbd5e1 !important; /* 👈 ضخیم‌تر کردن حاشیه */
+    margin-left: 8px !important; /* 👈 فاصله با متن */
+}
+
+/* تغییر رنگ چک‌باکس در حالت انتخاب شده */
+.tc-day-check:checked {
+    background-color: var(--tb-primary) !important;
+    border-color: var(--tb-primary) !important;
+}
+
+/* ==========================================================================
+   استایل‌های اختصاصی ردیف‌های حذف شده و لغو شده (Soft Delete UI)
+   ========================================================================== */
+
+/* کلاس اختصاصی برای ردیف‌های باطل شده */
+.tc-row-deleted td {
+    background-color: var(--tb-white) !important; /* پس‌زمینه سفید */
+    color: var(--tb-error) !important; /* رنگ متن قرمز */
+    text-decoration: none !important; /* حذف خط‌خوردگی */
+    opacity: 0.85; /* کمی کمرنگ‌تر برای تمایز بهتر */
+}
+
+/* تغییر رنگ هاور برای ردیف‌های حذف شده */
+.tb-table tbody tr.tc-row-deleted:hover td {
+    background-color: var(--tb-table-hover) !important; /* رنگ هاور استاندارد جدول */
+}
+
+/* استایل تگ وضعیت برای حالت حذف شده (تایم آزاد) */
+.tc-status-deleted {
+    background-color: #f8fafc;
+    color: var(--tb-error);
+    border: 1px solid #fecaca;
+    text-decoration: none !important;
+} 
+
+/* ==========================================================================
+   اصلاحات رسپانسیو موبایل و دسکتاپ (دکمه‌های گوگل و کارتابل)
+   ========================================================================== */
+
+/* 👈 در دسکتاپ: دکمه به اندازه متن داخلش باشد */
+#btn_open_resolution_modal {
+    width: max-content;
+}
+
+@media (max-width: 768px) {
+    /* هم‌عرض کردن دکمه‌های اتصال/قطع گوگل در موبایل */
+    .tb-google-status-actions {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .tb-google-status-actions button, 
+    .tb-google-status-actions a {
+        width: 100% !important;
+        margin: 0 !important;
+        justify-content: center;
+    }
+
+    /* 👈 در موبایل: دکمه تعیین تکلیف سریع تمام‌عرض شود */
+    .tc-resolution-btn-wrapper {
+        width: 100%;
+        margin-top: 5px;
+    }
+    #btn_open_resolution_modal {
+        width: 100% !important; /* 👈 این دستور اکنون کار می‌کند */
+        justify-content: center;
+    }
+}
+
+
+/* ۱. برگرداندن فاصله‌های استاندارد پاپ‌آپ */
+#front-resolution-modal .tb-modal-body {
+    padding: 10px !important;
+    overflow: hidden !important; /* جلوگیری از اسکرول کل پاپ‌آپ */
+}
+
+/* ۲. تنظیم فاصله متن راهنما */
+#front-resolution-modal .text-muted {
+    padding: 0 0 15px 0 !important;
+    margin: 0 !important;
+}
+
+/* ۳. ساخت یک باکس زیبا و اسکرول‌خور برای جدول */
+#front-resolution-modal .table-responsive {
+    max-height: 50vh !important; /* حداکثر ارتفاع جدول */
+    overflow-y: auto !important;
+    border: 1px solid #e2e8f0 !important; /* کادر دور جدول */
+    border-radius: 12px !important; /* گوشه‌های گرد کادر */
+    margin: 0 !important;
+}
+
+/* ۴. استایل هدر چسبان و حذف خطوط خاکستری بین ستون‌ها */
+#front-resolution-modal .tb-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f8fafc !important;
+    z-index: 10 !important;
+    border: none !important; /* 👈 حذف خطوط خاکستری بین ستون‌ها */
+    box-shadow: 0 1px 0 #e2e8f0 !important; /* یک خط ظریف فقط در زیر هدر */
+}
+
+/* ۵. حذف حاشیه‌های اضافی خود جدول برای فیت شدن در باکس */
+#front-resolution-modal .tb-table {
+    border: none !important;
+}
+#front-resolution-modal .tb-table tbody tr:last-child td {
+    border-bottom: none !important;
+} 
+
+/* ==========================================================================
+   حل قطعی مشکل ارتفاع پاپ‌آپ کارتابل در پنل مدیریت (اسکرول داخلی)
+   ========================================================================== */
+/* محدود کردن ارتفاع بدنه پاپ‌آپ و جلوگیری از اسکرول کل پنجره */
+#tc-resolution-modal .tb-modal-body {
+    padding: 10px !important;
+    overflow: hidden !important; 
+}
+
+/* تنظیم فاصله متن راهنما */
+#tc-resolution-modal .text-muted {
+    padding: 0 0 15px 0 !important;
+    margin: 0 !important;
+}
+
+/* 👈 اصلاح کلاس: ساخت باکس اسکرول‌خور برای جدول پنل مدیریت */
+#tc-resolution-modal .tb-table-wrapper {
+    max-height: 50vh !important; /* حداکثر ارتفاع جدول */
+    overflow-y: auto !important; /* اسکرول عمودی فقط برای جدول */
+    border: 1px solid #e2e8f0 !important; 
+    border-radius: 12px !important; 
+    margin: 0 !important;
+}
+
+/* استایل هدر چسبان */
+#tc-resolution-modal .tb-table thead th {
+    position: sticky !important;
+    top: 0 !important;
+    background-color: #f8fafc !important;
+    z-index: 10 !important;
+    border: none !important;
+    box-shadow: 0 1px 0 #e2e8f0 !important;
+}
+
+/* حذف حاشیه‌های اضافی خود جدول */
+#tc-resolution-modal .tb-table {
+    border: none !important;
+}
+#tc-resolution-modal .tb-table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* ==========================================================================
+   اصلاح سایز فونت عنوان فقط برای پاپ‌آپ کارتابل
+   ========================================================================== */
+#front-resolution-modal .tb-modal-title,
+#tc-resolution-modal .tb-modal-title {
+    font-size: 14px !important; /* 👈 سایز فونت کوچکتر شد (پیش‌فرض 16px بود) */
+}
+
+/* کمی کوچکتر کردن آیکون کنار عنوان برای تناسب با فونت جدید */
+#front-resolution-modal .tb-modal-title svg,
+#tc-resolution-modal .tb-modal-title svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* ==========================================================================
+   کشیده شدن و مساوی شدن فیلدهای ساعت در تولید انبوه
+   ========================================================================== */
+/* کانتینر دربرگیرنده دو فیلد ساعت و کلمه "تا" */
+.tc-weekday-times {
+    gap: 15px !important; /* فاصله مناسب بین فیلدها و کلمه "تا" */
+}
+
+/* مجبور کردن فیلدهای ساعت به پر کردن تمام فضای خالی به صورت مساوی */
+.tc-weekday-times .tc-time-input-wrapper {
+    flex: 1 !important; /* 👈 جادوی Flexbox: تقسیم مساوی فضا */
+    width: auto !important; /* 👈 خنثی کردن عرض ثابت قبلی */
+    max-width: none !important;
+}
+
+/* اطمینان از اینکه خود اینپوت هم تمام عرض کانتینرش را پر می‌کند */
+.tc-weekday-times .tc-time-input-wrapper input {
+    width: 100% !important;
+}
+
+/* ==========================================================================
+   کوچک کردن فونت خطای "ساعت الزامی است" فقط در تولید انبوه
+   ========================================================================== */
+.tc-time-input-wrapper .tb-inline-error {
+    font-size: 10.5px !important; /* 👈 فونت بسیار ریز و ظریف */
+    padding: 2px 5px !important; /* 👈 جمع‌وجور کردن باکس قرمز رنگ */
+    margin-top: 2px !important;
+    letter-spacing: 0px !important; /* 👈 نزدیک کردن حروف برای جاگیری بهتر */
+}
